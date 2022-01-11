@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.star.cinema.myPage.dao.IMyPageDAO">
+
+<resultMap type="com.star.cinema.customer.dto.QuestionDTO" id="question">
+		<result column="questionNum" property="questionNum"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="id" property="id"/>
+		<result column="fileName" property="fileName"/>
+		<result column="division" property="division"/>
+		<result column="kinds" property="kinds"/>
+		<result column="answer" property="answer"/>
+		<result column="regDate" property="regDate"/>
+</resultMap>
+
+<select id="myQuestionCount" parameterType="String" resultType="int">
+	SELECT count(*) from question WHERE id=#{id}
+</select>
+
+<select id="myQuestionList" resultMap="question">
+		SELECT B.* FROM(
+			SELECT rownum rn, A.* FROM(
+				SELECT * FROM question WHERE id=#{id} order by regDate desc
+			)A
+		)B WHERE rn BETWEEN #{b} and #{e}
+</select>
+	
+<update id="modifyMember" parameterType="com.star.cinema.member.dto.MemberDTO">
+	UPDATE member SET pw=#{pw},phone=#{phone},zipcode=#{zipcode},address=#{address} WHERE memberNum=#{memberNum}
+</update>
+	
+<delete id="deleteMember" parameterType="com.star.cinema.member.dto.MemberDTO">
+	DELETE FROM member WHERE memberNum=#{memberNum}
+</delete>
+	
+</mapper>

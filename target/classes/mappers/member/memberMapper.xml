@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.star.cinema.member.dao.IMemberDAO">
+	<resultMap type="com.star.cinema.member.dto.MemberDTO" id="member">	
+		<result column="memberNum" property="memberNum"/>
+		<result column="id" property="id"/>
+		<result column="pw" property="pw"/>
+		<result column="name" property="name"/>
+		<result column="email" property="email"/>
+		<result column="birth" property="birth"/>
+		<result column="phone" property="phone"/>
+		<result column="address" property="address"/>
+		<result column="zipcode" property="zipcode"/>
+		<result column="gender" property="gender"/>
+	</resultMap>
+	
+	<select id="memberList" resultMap="member">
+		SELECT B.* FROM(
+			SELECT rownum rn, A.* FROM(
+				SELECT * FROM member ORDER BY memberNum
+			)A
+		)B WHERE rn BETWEEN #{b} and #{e}
+	</select>
+	
+	<select id="memberSearch" resultMap="member">
+		SELECT * FROM member WHERE name LIKE '%'||#{search}||'%'
+	</select>
+	
+	<select id="memberCount" resultType="int">
+		SELECT count(*) FROM member
+	</select>
+	
+	<select id ="isExistId" resultMap="member" parameterType="String">
+		SELECT * FROM member where id = #{id}
+	</select>
+	
+	<insert id = "insertMember" parameterType="com.star.cinema.member.dto.MemberDTO">		
+		INSERT INTO member values(
+			mem_seq.nextval, #{id}, #{pw}, #{name}, #{email}, #{birth},
+			#{phone}, #{address}, #{zipcode}, #{gender})
+	</insert>
+	
+	<select id="selectMember" resultMap="member">
+		SELECT * FROM member WHERE id=#{id}
+	</select>
+	
+	<delete id="deleteMember">
+		DELETE from member WHERE id=#{id}
+	</delete>
+	
+	<update id="modifyMember" parameterType="com.star.cinema.member.dto.MemberDTO">
+		UPDATE member SET pw=#{pw} WHERE id=#{id}
+	</update>
+	
+	<select id="searchWithEmailMember" resultMap="member">
+		SELECT * FROM member WHERE name LIKE '%'||#{searchId}||'%' and EMAIL LIKE '%'||#{searchEmail}||'%'
+	</select>
+</mapper>

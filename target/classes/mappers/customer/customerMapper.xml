@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.star.cinema.customer.dao.ICustomerDAO">
+
+	<resultMap type="com.star.cinema.customer.dto.NoticeDTO" id="notice">	
+		<result column="noticeNum" property="noticeNum"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="regDate" property="regDate"/>
+		<result column="division" property="division"/>
+		<result column="hit" property="hit"/>
+	</resultMap>
+	
+	<resultMap type="com.star.cinema.customer.dto.QuestionDTO" id="question">
+		<result column="questionNum" property="questionNum"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="id" property="id"/>
+		<result column="fileName" property="fileName"/>
+		<result column="division" property="division"/>
+		<result column="kinds" property="kinds"/>
+		<result column="answer" property="answer"/>
+		<result column="regDate" property="regDate"/>
+	</resultMap>
+	
+	<insert id="insertNotice" parameterType="com.star.cinema.customer.dto.NoticeDTO">		
+		INSERT INTO notice values(notice_seq.nextval, #{title}, #{content},#{regDate},#{division},0)
+	</insert>
+
+	<select id="customerList" resultMap="notice">
+		SELECT B.* FROM(
+			SELECT rownum rn, A.* FROM(
+				SELECT * FROM notice order by noticeNum desc
+			)A
+		)B WHERE rn BETWEEN #{b} and #{e}
+	</select>
+	
+	<select id="customerSearchCount" resultType="int">
+		SELECT count(*) FROM notice
+				<choose>
+					<when test="sel == 'tit'">WHERE title LIKE '%'||#{search}||'%'</when>
+					<when test="sel == 'con'">WHERE content LIKE '%'||#{search}||'%'</when>
+					<when test="sel == 'all'">WHERE title LIKE '%'||#{search}||'%' or content LIKE '%'||#{search}||'%' </when>
+				</choose>	
+	</select>
+	
+	<select id="customerSearch" resultMap="notice">
+		SELECT B.* FROM(
+			SELECT rownum rn, A.* FROM(
+				SELECT * FROM notice
+				<choose>
+					<when test="sel == 'tit'">WHERE title LIKE '%'||#{search}||'%'</when>
+					<when test="sel == 'con'">WHERE content LIKE '%'||#{search}||'%'</when>
+					<when test="sel == 'all'">WHERE title LIKE '%'||#{search}||'%' or content LIKE '%'||#{search}||'%' </when>
+				</choose>
+			)A
+		)B WHERE rn BETWEEN #{b} and #{e}
+	</select>
+		
+	<select id="customerCount" resultType="int">
+		SELECT count(*) FROM notice
+	</select>
+	
+	<update id="updateHit" parameterType="int">
+		UPDATE notice SET hit=hit+1 where noticeNum=#{noticeNum}
+	</update>
+	
+	<select id="selectNum" parameterType="int" resultMap="notice">
+		SELECT * FROM notice WHERE noticeNum=#{noticeNum}
+	</select>
+	
+	<update id = "updateNotice" parameterType="com.star.cinema.customer.dto.NoticeDTO">
+		UPDATE notice SET title=#{title}, content=#{content} WHERE noticeNum=#{noticeNum}
+	</update>
+	
+	<delete id="deleteNotice" parameterType="int">
+		DELETE FROM notice WHERE noticeNum=#{noticeNum}
+	</delete>
+	
+	<insert id="insertQuestion" parameterType="com.star.cinema.customer.dto.QuestionDTO">
+		INSERT INTO question VALUES(que_seq.nextval,#{title},#{content},#{id},
+			#{fileName},#{division},#{kinds},#{answer},#{regDate})	
+	</insert>
+	
+	<select id="questionCount" resultType="int">
+		SELECT count(*) FROM question
+	</select>
+	
+	<select id="questionList" resultMap="question">
+		SELECT B.* FROM(
+			SELECT rownum rn, A.* FROM(
+				SELECT * FROM question order by questionNum desc
+			)A
+		)B WHERE rn BETWEEN #{b} and #{e}
+	</select>
+	
+	<select id="selectQuesion" parameterType="int" resultMap="question">
+		SELECT * FROM question WHERE questionNum = #{questionNum}
+	</select>
+	
+	<update id="answerUpdate">
+		UPDATE question SET answer=#{answer} WHERE questionNum = #{questionNum}
+	</update>
+	
+</mapper>

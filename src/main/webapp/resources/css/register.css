@@ -1,0 +1,200 @@
+@charset "UTF-8";
+
+.logo{
+	margin-top : 50px;
+}
+
+#content{
+	width : 600px;
+}
+.divAgree{
+	width : 100%;
+}
+
+/* 약관동의 페이지 - 체크박스 위치 조정, 체크박스 이미지 넣기 + 체크박스 or 글자 체크시 이미지 변경 */
+
+input[id='chk_all']+label{
+	position : relative;
+	left : 40px;
+}
+
+input[type='checkbox']+label { 
+	padding-left : 40px;
+	display : inline-block; 
+	height : 35px;
+	background : no-repeat;
+	background-image: url('../images/register/all_chk_off.png');
+	background-size: 35px;
+	cursor: pointer;
+}
+
+input[type='checkbox']:checked+label { 
+	height : 35px;
+	background : no-repeat;
+	background-image: url('../images/register/all_chk_on.png'); 
+	background-size: 35px;
+	cursor: pointer;
+}
+
+input[type='checkbox']{
+	display : none;
+}
+
+/* 약관동의 창 */
+.terms_bx_list{margin-top:4px}
+.terms_bx{display:block;padding-top:30px}
+.terms_box{
+	position:relative;overflow:auto;
+	height:88px;margin-top:8px;
+	padding:12px;
+	border:1px solid #dadada;
+	background:#fff;
+	box-sizing:border-box;
+	scrollbar-base-color:#d9d9d9;scrollbar-arrow-color:#8e8e8e;
+	scrollbar-3dlight-color:#d9d9d9;scrollbar-darkshadow-color:#d9d9d9;
+	scrollbar-face-color:#d9d9d9;scrollbar-highlight-color:#d9d9d9;
+	scrollbar-shadow-color:#d9d9d9;
+	scrollbar-track-color:#f2f2f2;
+	-webkit-overflow-scrolling:touch
+}
+.terms_box .article{font-size:12px;line-height:16px;color:#666}
+
+.agree_chk{
+    position :relative;
+    left : 40px;
+    color : red;
+    font-weight : bold;   
+}
+
+/* 약관동의 버튼 */
+.agree_btn_area{
+	width : 100%; 
+}
+
+#agreeNo{
+	margin-left : 10%;
+	background-color: gray; 
+}
+
+#agreeYes{
+	background-color: red; 
+}
+#agreeNo, #agreeYes{
+	text-align : center;
+	width : 45%;
+	height: 50px;
+	color: white; 
+	border-color: transparent; 
+	cursor:  pointer;
+	font-weight: bold;
+}
+
+.agree_btn_area #agreeNo, .agree_btn_area #agreeYes{
+	margin-top :20px;
+	margin-left :15px;
+}
+
+/* 이메일 인증 페이지 테이블 & 정보작성 페이지 테이블 */
+
+.emailTb, .registerTb{
+	font-family: "Roboto";
+	margin-top : 50px;
+	width : 100%;	
+	overflow : hidden;
+	
+}
+.emailTb tr, .registerTb tr{
+	height: 50px;
+}
+.emailTb th, .registerTb th{
+	text-align: left;
+	width : 30%;
+	padding-right: 5px;
+
+}
+.emailTb .must, .registerTb .must{
+	color: red;
+}
+.emailTb .title, .registerTb .title{
+	color: gray;
+}
+
+.emailTb td input[type='text']{
+	height : 30px;
+	width : 65%
+}
+
+.emailTb td input[type='button'], .registerTb td input[type='button'] {
+	height : 30px;
+	border-color : transparent;
+	font-weight: bold;
+	color : white;
+	background-color : #FF4848;
+	cursor: pointer;
+}
+
+#authLabel{
+	padding-left : 30%;
+	text-align: center;
+	color: red;
+	font-weight: bold;
+}
+
+.auth_btn_area #agreeNo, .auth_btn_area #agreeYes ,.register_btn_area #agreeNo, .register_btn_area #agreeYes{
+	margin : 0px auto;
+}
+
+/* 정보 작성 페이지 */
+select{vertical-align:middle; appearance:none; -webkit-appearance:none; -moz-appearance:none;}
+select{
+	position: relative;
+    border: 1px solid;
+    background: #fff url(../images/icon/arr_dw.png);
+    background-repeat: no-repeat;
+    background-position: right 6px top 50%;
+        
+    font-size: 13px;
+    font-family: "Roboto";
+    color: gray;;
+    padding-left : 5px;	
+}
+
+#id{
+	width : 67%;
+	height : 30px;
+}
+#pw, #pwChk, #addr1, #addr2{
+	width : 85%;
+	height : 30px;
+}
+
+#year, #phone1{
+	width : 22.5%;
+	height: 30px;
+}
+
+#month, #day, #phone2, #phone3, #zipcode{
+	width  : 30%;
+	height: 30px;
+}
+
+.address{
+	height: 120px;
+	padding-top : 5px;
+}
+
+
+.register_btn_area{
+	line-height : 10;
+}
+
+.registerTb td label{
+	font-size : 10px;
+	color : gray;
+}
+
+.registerTb td span{
+	font-size : 12px;
+	color: red;
+	font-weight: bold;
+}

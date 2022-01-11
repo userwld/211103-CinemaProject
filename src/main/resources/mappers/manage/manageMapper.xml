@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.star.cinema.manage.dao.IManageDAO">
+	<resultMap type="com.star.cinema.manage.dto.TimeInfoDTO" id="timeInfo">
+		<result column="timeInfoNum" property="timeInfoNum"/>
+		<result column="startTime" property="startTime"/>
+		<result column="movieListNum" property="movieListNum"/>
+		<result column="hallNum" property="hallNum"/>
+		<result column="ticketDate" property="ticketDate"/>
+	</resultMap>
+	
+	<resultMap type="com.star.cinema.manage.dto.HallDTO" id="hall">
+		<result column="hallNum" property="hallNum"/>
+		<result column="hallName" property="hallName"/>
+		<result column="cinemaNum" property="cinemaNum"/>
+	</resultMap>
+	
+	<resultMap type="com.star.cinema.manage.dto.CinemaDTO" id="cinema">
+		<result column="cinemaNum" property="cinemaNum"/>
+		<result column="countryName" property="countryName"/>
+		<result column="cinemaName" property="cinemaName"/>
+	</resultMap>
+	
+	<resultMap type="com.star.cinema.movie.dto.MovieDTO" id="movie">	
+		<result property="movieListNum" column="movieListNum"/>
+		<result property="movieName" column="movieName"/>
+		<result property="movieGenre" column="movieGenre"/>
+		<result property="movieDetail" column="movieDetail"/>
+		<result property="movieOpen" column="movieOpen"/>
+		<result property="movieDirector" column="movieDirector"/>
+		<result property="movieActors" column="movieActors"/>
+		<result property="movieAge" column="movieAge"/>
+		<result property="moviePoster" column="moviePoster"/>
+		<result property="movieCountry" column="movieCountry"/>
+		<result property="movieTime" column="movieTime"/>
+	</resultMap>
+	
+		<resultMap type="com.star.cinema.movie.dto.TicketingDTO" id="ticketing">
+		<result property="ticketingNum" column="ticketingNum"/>
+		<result property="id" column="id"/>
+		<result property="seatName" column="seatName"/>
+		<result property="openDate" column="openDate"/>
+		<result property="openTime" column="openTime"/>
+		<result property="people" column="people"/>
+		<result property="totalPrice" column="totalPrice"/>
+		<result property="movieListNum" column="movieListNum"/>
+		<result property="cinemaNum" column="cinemaNum"/>
+		<result property="hallNum" column="hallNum"/>
+		<result property="moiveName" column="moiveName"/>	
+	</resultMap>
+	
+	<select id="movieList" parameterType="com.star.cinema.movie.dto.MovieDTO" resultMap="movie">
+		SELECT B.* FROM(
+			SELECT rownum rn, A.* FROM(
+				SELECT * FROM MovieList ORDER BY movieListNum
+			)A
+		)B WHERE rn BETWEEN #{b} and #{e}
+	</select>
+	
+	<select id="timeInfoList" parameterType="com.star.cinema.manage.dto.TimeManageDTO" resultMap="timeInfo">
+		SELECT * FROM timeinfo ORDER BY timeInfoNum
+	</select>
+	
+	<select id="hallList" parameterType="com.star.cinema.manage.dto.HallDTO" resultMap="hall">
+		SELECT * FROM hall ORDER BY hallNum
+	</select>
+	
+	<select id="cinemaList" parameterType="com.star.cinema.manage.dto.CinemaDTO" resultMap="cinema">
+		SELECT B.* FROM(
+			SELECT rownum rn, A.* FROM(
+				SELECT * FROM cinema ORDER BY cinemaNum
+			)A
+		)B WHERE rn BETWEEN #{b} and #{e}
+	</select>
+	
+	<select id="timeInfoCount" resultType="int">
+		SELECT count(*) FROM timeinfo
+	</select>
+	
+	<select id="cinemaName" resultType="int">
+		SELECT cinemaNum FROM cinema WHERE cinemaName LIKE '%'||#{search}||'%'
+	</select>
+	
+	<select id="timeSearch" parameterType="int" resultMap="timeInfo">
+		SELECT * FROM timeinfo WHERE cinemaNum=#{cinemaNum}
+	</select>
+	
+	<select id="hallSearch" parameterType="int" resultMap="hall">
+		SELECT * FROM hall WHERE cinemaNum=#{cinemaNum}
+	</select>
+	
+	<select id="cinemaSearch" parameterType="int" resultMap="cinema">
+		SELECT * FROM cinema WHERE cinemaNum=#{cinemaNum}
+	</select>
+	
+	<select id="cinemaSearchForName" resultMap="cinema">
+		SELECT * FROM cinema WHERE cinemaName LIKE '%'||#{search}||'%'
+	</select>
+	
+	<select id="AllCinemaList" resultMap="cinema">
+		SELECT * FROM cinema
+	</select>
+	
+	<delete id="timeInfoDelete">
+		DELETE from timeinfo WHERE timeInfoNum=#{timeInfoNum}
+	</delete>
+	
+	<delete id="hallDelete">
+		DELETE from hall WHERE hallNum=#{hallNum}
+	</delete>
+	
+	<delete id="cinemaDelete">
+		DELETE from cinema WHERE cinemaNum=#{cinemaNum}
+	</delete>
+	
+	<insert id="cinemaInsert" parameterType="com.star.cinema.manage.dto.CinemaDTO">
+		INSERT INTO cinema VALUES(cinema_seq.nextval, #{countryName}, #{cinemaName})
+	</insert>
+	
+	<select id="cinemaCount" resultType="int">
+		SELECT count(*) FROM cinema
+	</select>
+	
+	<insert id="hallInsert" parameterType="com.star.cinema.manage.dto.HallDTO">
+		INSERT INTO hall VALUES(hall_seq.nextval, #{hallName}, (SELECT cinemaNum FROM cinema WHERE cinemaNum=#{cinemaNum}))
+	</insert>
+	
+   <insert id="timeInfoInsert" parameterType="com.star.cinema.manage.dto.TimeInfoDTO">
+      INSERT INTO timeinfo VALUES(time_seq.nextval, #{startTime}, (SELECT MAX(hallNum) FROM hall), #{movieListNum}, #{ticketDate}, #{cinemaNum}, #{movieName})
+   </insert>
+	
+	<select id="movieInfo" parameterType="com.star.cinema.movie.dto.MovieDTO" resultMap="movie">
+		SELECT * FROM MovieList
+	</select>
+	
+	<select id = "groupCount" resultType="int">
+		select count(*) as B from ticketing group by movieListNum order by B desc
+	</select>
+	
+	<select id="movieCount" resultType="int">
+		select movieListNum,count(*) as B from ticketing group by movieListNum order by B desc
+	</select>
+	
+	<select id="totalTicketCount" resultType="int">
+		select count(*) from ticketing
+	</select>
+	
+	<select id="hallSelect" resultMap="hall">
+		SELECT * FROM hall WHERE hallNum=#{hallNum} AND cinemaNum=#{cinemaNum}
+	</select>
+	
+	<select id="timeSelect" resultMap="timeInfo">
+		SELECT * FROM timeinfo WHERE movieListNum=#{movieListNum} AND cinemaNum=#{cinemaNum} AND hallNum=#{hallNum}
+	</select>
+   
+   <select id="movieSeatList" resultMap="ticketing">
+      SELECT * FROM ticketing WHERE movieListNum=#{movieListNum} AND cinemaNum=#{cinemaNum} AND hallNum=#{hallNum} AND openDate Like '%'||#{OpenDate}||'%' AND OpenTime Like '%'||#{OpenTime}||'%'
+   </select>
+   
+   <select id="hallNum" resultType="int">
+   		SELECT hallNum FROM hall WHERE hallName=#{hallName}
+   </select>
+</mapper>

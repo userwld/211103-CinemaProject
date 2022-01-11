@@ -1,0 +1,300 @@
+@charset "UTF-8";
+
+.content, .sub_content{
+	width : 980px;
+	display: block;
+	font-family: "Roboto";
+}
+/* 고객센터페이지 상단 가로 메뉴바 영역(header) */
+.top_menu{
+	position: relative;
+    padding-top: 50px;
+}
+.top_menu h2{
+	text-align: left;
+	font-weight: bold;
+	font-size : 25px;
+	font-family: "Roboto";
+	
+}
+.top_menu ul{
+	margin-top : 20px;
+	width : 100%;
+	height : 50px;
+	list-style:none;
+}
+
+.top_menu .main .main_li{
+	float : left;
+	width : 50%; 
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	color: #7F7F7F;
+    position : relative;
+    border-bottom: 1px solid #7F7F7F;
+    border-top: 1px solid #EEE;
+    
+}
+
+.top_menu li .main_a{
+    height: 50px;
+    font-size: 18px;
+    color: #7F7F7F; 
+    font-weight : bold;
+    font-family: "Roboto";
+}
+
+.top_menu li:hover > .main_a{
+	 color: #000;
+	 line-height : 20px;	
+}
+
+a, a:link, a:visited, a:active, a:hover {
+ 	color : black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:focus{
+	color : black;
+}
+
+
+/* 고객센터 페이지 */
+.search_wrap{
+	margin-top : 40px;;
+	text-align : left;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    background: #F8F8F8;
+    padding: 22px 0px;
+    font-size: 0;
+}
+.search_wrap select{
+	margin-left :10px;
+	margin-top : -10px;
+	
+}
+.search_wrap select, .questionTb select{
+	font-family: "Roboto";
+    border: 1px solid #DDD;
+    background: #fff url(../images/icon/arr_dw.png);
+    background-repeat: no-repeat;
+    background-position: right 6px top 50%;
+    font-size: 14px;
+    vertical-align: middle;
+    color: #000;
+    cursor : pointer;
+}
+
+#searchWord{
+	width : 580px;
+	margin-right: 4px;
+	font-family: "Roboto";
+}
+
+.sub_content{
+	margin-top : 30px;
+}
+
+#searchBtn{
+	position:absolute; top:23px;
+	width:100px; height: 40px;
+	font-size : 15px;
+	 font-family: "Roboto";
+	cursor : pointer;
+}
+
+
+.notice, .detail_notice{
+	width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 0;
+   
+}
+
+.notice th{
+	padding : 20px 0;
+    border-bottom: 1px solid #999;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 1.3;
+}
+
+.notice tr{
+	text-align: center;
+    font-size : 15px;
+	height : 40px;
+}
+
+
+.noNotice{
+	padding: 80px 0;
+    text-align: center;
+}
+.noNotice p{
+	font-size: 15px;
+    color: #999
+}
+
+.notice_paging{
+	margin-top : 20px;
+}
+
+.notice_paging a{
+	font-size : 15px;
+	margin-left : 10px;
+}
+
+.paging_ctrl{
+	position : relative;
+	top : 30px;
+}
+
+/* 공지사항 상세 페이지 */
+
+.sub_content{
+	margin-top : 40px;
+}
+.detail_notice{
+	margin-top : 60px;
+	font-family: "Roboto";
+
+}
+.detail_notice th{
+	text-align: left;
+	border-top: 1px solid #BBBBBB;
+	border-bottom : 1px solid #BBBBBB;
+    font-weight: bold;
+}
+.detail_notice th, .detail_notice td{
+    padding: 18px;
+    font-size: 15px;
+    line-height: 1.3;
+}
+
+.detail_notice td{
+	border-bottom: 1px solid #EEEEEE;
+}
+
+
+.detail_th{
+	background-color :#F8F8F8;
+}
+
+.detail_th .tit1,.detail_th .tit2,.detail_th .tit3{
+	color: #666666;
+	font-weight : bold;
+}
+
+.detail_th .tit1{
+	margin-left: 40px;
+}
+.detail_th .tit2,.detail_th .tit3{
+	margin-left: 120px;
+}
+
+.detail_th .line{
+    content: '';
+    display: inline-block;
+	background: #666;
+	margin : 0px 20px;
+	height : 16px;
+    width : 1px;
+    vertical-align : middle;
+}
+.detail_con td{
+	height : 500px;	
+}
+
+.detail_con textarea{
+	padding-top : 20px;
+	border-color : transparent;
+	height : 500px;
+	text-align : left;
+}
+
+.notice_btn_area{
+	text-align: right;
+}
+.notice_btn_area input{
+	height : 30px;
+	width : 70px;
+	border : 1px solid;
+	background-color :  #999;
+	color : white;
+	font-weight : bold;
+	font-size : 13px;
+	font-family : sans-serif;
+	cursor : pointer;
+}
+
+/* 1:1 문의글 작성, 공지사항 작성*/
+
+.question_write p,.notice_write p{
+	font-weight: bold;
+	font-size: 20px;
+}
+.questionTb, .notice_write_Tb{
+	margin-top : 20px;
+}
+
+.questionTb th, .notice_write_Tb th{
+	text-align: left;
+	width : 30%;
+	padding-right: 5px;
+	font-weight: bold;
+}
+
+.questionTb tr, .notice_write_Tb tr{
+	border-top: 1px solid #EEEEEE;
+	height: 60px;
+}
+
+
+.questionTb .question_content, .notice_write_Tb .notice_content{
+	height: 200px;
+}
+
+.questionTb .question_content textarea, .notice_write_Tb .notice_content textarea{
+	height: 200px;
+}
+
+.must{
+	color: red;
+}
+.title{
+	color: gray;
+}
+#title{
+	width : 100%;
+}
+
+#inputCheck{
+	color : red;
+}
+.question_btn_area, .noticeWrite_btn_area{
+	padding-top : 50px;
+	text-align: center;
+}
+
+#writeNo{
+	background-color: white; 
+	border : 1px solid;
+	color: black; 
+}
+
+#writeYes{
+	background-color: gray; 
+	color: white; 
+	border-color: transparent;
+}
+#writeNo, #writeYes{
+	text-align : center;
+	width : 15%;
+	height: 40px;
+	cursor:  pointer;
+	font-weight: bold;
+}

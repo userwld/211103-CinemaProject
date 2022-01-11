@@ -1,0 +1,689 @@
+.content{
+	width : 980px;
+	display: block;
+	font-family: "Roboto";
+}
+
+.detail_top{
+	position: relative;
+    padding-left: 245px;
+    margin-bottom: 15px;
+}
+.detail_poster{
+	position: absolute;
+    top: -40px;
+    left: 0;
+    width: 205px;
+    height: 305px;
+    z-index: 1;
+}
+
+.detail_poster img{
+	width: 100%;
+    border-radius: 4px;
+}
+.detail_title{
+	margin: 20px 4px 0 0;
+	text-align: left;
+}
+.grade{
+	width: 36px;
+    height: 36px;
+    line-height: 36px;
+    vertical-align: top;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    color : #FFF;
+    font-weight: bold;
+}
+
+.grade.grall{
+	content : "all";
+	background-color: #5BC77E;
+}
+.grade.gr12{
+	content: "12";
+    background-color: #4DD6FF;
+}
+.grade.gr15{
+	content : "15";
+	background-color: #FFC134;
+}
+.grade.gr18{
+	content: "청불";
+    background-color: #ED4C6B;
+}
+
+.detail_title strong{
+	font-size : 26px;
+	margin-left : 5px;
+}
+
+ul{
+	list-style: none;
+}
+
+.detail_info1{
+	padding-bottom: 17px;
+    margin : 30px 0px 15px 0px;
+	font-size: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+.detail_info1 li{
+	float: left;
+    margin-right: 25px;
+}
+
+.detail_info1 .sub_info1{
+	margin-top : -5px;
+}
+
+.score{
+	margin-left : 5px;
+	width: 14px;
+    height: 14px;
+    background: url(../images/myPage/star.png) no-repeat 0 0;
+}
+.score em{
+	display: inline-block;
+	text-indent: -9999em;
+	margin: -2px 3px 0 0;
+	vertical-align: middle;
+}
+
+.score strong{
+	font-size : 20px;
+	margin-left : 20px;
+}
+
+.str{
+	font-size : 20px;
+	margin-left : 10px;
+}
+.detail_info1 .sub_info2{
+	margin-top : -5px;
+}
+
+.detail_info2{
+	margin-bottom: 17px;
+    font-size: 13px;
+    float : left;
+    margin-top : 10px;
+}
+
+.detail_info2 li{
+	margin-top: 15px;
+}
+
+.detail_info2 li em{
+	margin-right: 10px;
+}
+ .detail_info2 .tit{
+ 	font-weight : bold;
+ }
+.detail_info2 li strong{
+	color: #666;
+}
+
+.detail_info2 .sub_info1 strong > em {
+ 	position: relative;
+    padding-left: 1px
+} 
+
+.line{
+	content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    width: 1px;
+    height: 9px;
+ 
+}
+.detail_info2 .sub_info1{float : left;}
+.detail_info2 .sub_info2{float : left;}
+.detail_info2 .sub_info3{float : left;}
+
+.btn_area{
+	clear : both;
+}
+
+.btn_area ul li{
+	float : left;
+	margin-right : 50px;
+	cursor: pointer;
+}
+
+.btn_area .movieLikeBtn{
+	display: block;
+    position: relative;
+    width: 39px;
+    height: 40px;
+    background: url(../images/movie/whiteHeart.png) no-repeat 10px 0;
+    border: none;
+    top : 5px;
+    right : 10px;
+}
+.btn_area .movieLikeBtn strong{
+	overflow: hidden;
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+}
+ 
+.btn_area .movieLikeBtn em{
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    padding: 1px 0;
+    background: #fff;
+    font-size: 11px;
+    line-height: 11px;
+    font-family: 'Roboto', "Noto Sans KR";
+    text-align: center;
+} 
+
+a, a:link, a:visited, a:active, a:hover{
+	text-decoration: none;
+    cursor: pointer;
+}
+.btn_area .reserve_a{
+	min-width: 150px;
+    font-size: 18px;
+    border-radius: 20px;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    box-sizing: border-box;
+    color: #ffffff !important;
+    text-align: center;
+    background-color: #FF243E;
+    border: 1px solid #FF243E;
+    margin-left : -30px;
+}
+
+
+
+.tab_con{
+	clear : both;
+	overflow: inherit;
+    position: relative;
+    left : -250px;
+    top : 80px;
+    width: 1180px;
+    height: auto;
+}
+.tab_info1{
+	overflow: hidden;
+    margin: 0px 0 45px 0;
+}
+
+.left_con{
+	float: left;
+    width: 480px;
+}
+.tit_info{
+	display: block;
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.story{
+	height : 150px;
+	font-size: 13px;
+	font-family: 'Roboto';
+}
+
+/* 오른쪽 영역 (차트)*/
+
+.right_con{
+     position: relative;
+     left : 40px;
+     width: 700px;
+}
+
+/* 성별 선호도 차트 */
+.group_graph .bx_graph01{
+    position: relative;
+    width: 32%;
+    height: 76px;
+    margin-top: 80px;
+}
+.group_graph .bx_graph01 .bg{
+	position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 51px;
+    background: url(../images/movie/graph_bgx2.png) no-repeat center 0;
+    background-size: 111px auto;
+}
+
+.group_graph .bx_graph01 dl {
+    position: relative;
+    height: 51px;
+    border-bottom: 1px solid #666666;
+}
+
+.group_graph .bx_graph01 dl dt {
+    position: absolute;
+    bottom: -20px;
+    width: 50%;
+    font-size: 10px;
+    color: #666;
+    text-align: center;
+    white-space: nowrap;
+}
+.group_graph .bx_graph01 dl dt.mal{
+	left : 15%;
+}
+.group_graph .bx_graph01 dl dd.mal {
+    width: 17px;
+    margin-left: -36px;
+}
+.group_graph .bx_graph01 dl dd {
+    position: absolute;
+    left: 44.6%;
+    top: 0;
+    bottom: 0;
+}
+.group_graph .bx_graph01 dl dd .bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.group_graph .bx_graph01 dl dd.mal .bar {
+    background-color: #8BE2FC;
+}
+
+.group_graph .bx_graph01 dl dd.mal strong {
+    right: -45px;
+    color: #8BE2FC;
+}
+
+.group_graph .bx_graph01 dl dd strong {
+    position: absolute;
+    width: 38px;
+    z-index: 2;
+    top: -3px;
+    font-family: 'Roboto';
+    font-size: 12px;
+    white-space: nowrap;
+}
+.group_graph .bx_graph01 dl dt.fe{
+	left : 40%;
+}
+.group_graph .bx_graph01 dl dd strong span {
+    font-size: 10px;
+}
+
+.group_graph .bx_graph01 dl dd.fe {
+    width: 29px;
+    margin-left: 8px;
+}
+
+.group_graph .bx_graph01 dl dd.fe .bar {
+    background-color: #FB5B95;
+}
+
+.group_graph .bx_graph01 dl dd.fe strong {
+    right: -45px;
+    color: #FB5B95;
+}
+
+/* 연령별 선호도 차트 */
+.group_graph .bx_graph02 {
+	float : right;
+    position: relative;    
+    width : 280px;
+    top : -110px;
+    height: 110px;
+}
+
+.group_graph .bx_graph02 dl {
+    position: relative;
+    height: 85px;
+    border-bottom: 1px solid #666666;
+}
+
+.group_graph .bx_graph02 dl dt {
+    position: absolute;
+    bottom: -20px;
+    width: 50px;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    white-space: nowrap;
+}
+.group_graph .bx_graph02 dl dt.gen10 {
+    left: 35px;
+}
+.group_graph .bx_graph02 dl dd {
+    position: absolute;
+    bottom: 0;
+    width: 50px;
+}
+.group_graph .bx_graph02 dl dd.gen10 {
+    left: 35px;
+}
+.group_graph .bx_graph02 dl dd .bar {
+    display: block;
+    width: 8px;
+    height: 100%;
+    margin: 0 auto;
+    border-radius: 8px 8px 0 0;
+    background-color: #8B8B8B;
+}
+
+.group_graph .bx_graph02 dl dd strong {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    margin-top: -15px;
+    font-family: 'Roboto';
+    font-size: 12px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.group_graph .bx_graph02 dl dd strong span {font-size: 10px;}
+
+.group_graph .bx_graph02 dl dt.gen20 {left: 86px;}
+.group_graph .bx_graph02 dl dd.gen20 {left: 86px;}
+
+.group_graph .bx_graph02 dl dt.gen30 {left: 138px;}
+.group_graph .bx_graph02 dl dd.gen30 {left: 138px;}
+
+.group_graph .bx_graph02 dl dt.gen40 {left: 188px;}
+.group_graph .bx_graph02 dl dd.gen40 {left: 188px;}
+
+
+
+
+/* 리뷰페이지 */
+.score_box{
+	margin: 40px 0 33px 0;
+    text-align: center;
+    height : 100px;
+    background-color: #FFFFE4;
+}
+
+.score_box .score_ty{
+	margin-bottom: 15px;
+	line-height: 80px;
+	display: inline-block;
+    vertical-align: middle;
+}
+
+.score_box .score_ty .score_tit{
+	padding-right: 7px;
+    font-size: 15px;
+    color: #333;
+}
+
+.score_ty strong {
+	position : relative;
+	top : 8px;
+    padding-left: 28px;
+    font-size: 35px;
+    color: #000;
+    background: url(../images/movie/big_star.png) no-repeat 0 10px;
+}
+
+.score_ty span{
+    padding-left: 12px;
+    font-size: 21px;
+    color: #666;
+    display: inline-block;
+    position: relative;
+    font-family: "Roboto";
+    vertical-align: middle;
+}
+
+.score_ty .slash{
+	content: "/";
+    position: relative;
+    left : 10px;
+    bottom : -4px;
+    font-size : 25px; 
+    color : gray;
+}
+
+
+.review_box{
+	width : 980px;
+	height: 90px;
+    margin-bottom: 40px;
+    box-sizing: border-box;
+}
+
+.star_score_box{text-align: center;}
+.star_score_box .score_info {
+    display: block;
+    margin: 20px 0 7px 0;
+    font-size: 13px;
+}
+
+.star_score_box {
+    float: left;
+    width: 320px;
+    height: 88px;
+    background: #F8F8F8;
+    text-align: center;
+}
+
+.star_score_box .score_info em {
+    font-family: 'Roboto', "Noto Sans KR";
+    font-size: 28px;
+}
+.starR{
+  background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
+  background-size: auto 100%;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  text-indent: -9999px;
+  cursor: pointer;
+}
+.starR.on{background-position:0 0;}
+
+.reviewBox {
+    float: left;
+    width: 538px;
+}
+
+.review_txt{
+	height: 90px;
+    font-size: 14px;
+    width: 100%;
+    line-height: 1.5;
+    padding: 13px 18px;
+    color : gray;
+    font-weight : bold;
+}
+
+.btn_submit{
+	float: left;
+    width: 119px;
+    height: 90px;
+    border: none;
+    margin: -1px -1px 0 0;
+    background: #666;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight : bold;
+    border-radius : 5px;
+    font-family : sans-serif;
+}
+
+.review_list{
+	margin-top : 160px;
+}
+.review_top{
+	overflow: hidden;
+    width: 980px;
+    margin-bottom: 20px;
+}
+
+.review_top .total_info{
+	float: left;
+    font-size: 15px;
+    padding-left : 30px;
+}
+
+.reivew_con_list{
+	margin-left : 30px;
+	width : 980px;
+}
+.reivew_con_list li{
+	position: relative;
+    padding: 20px 0 15px 68px;
+    border-top: 1px solid #eee;
+}
+
+.reivew_con_list li .img_info{
+	display: block;
+    position: absolute;
+    top: 15px;
+    left: 30px;
+    overflow: hidden;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
+.reivew_con_list li .img_info img{
+	width: 100%;
+	border-radius: 50%;
+	border: none;
+    vertical-align: top;
+}
+.top_info {
+    margin-bottom: 12px;
+    position: relative;
+    text-align : left;
+    left : 10px;
+}
+.top_info .name_info {
+    padding-right: 11px;
+    margin-right: 9px;
+    font-size: 12px;
+}
+
+.top_info .score_ty2{
+	font-size: 14px;
+    margin-right: 11px;
+}
+
+.score_ty2{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.score_ty2 em{
+	width: 14px;
+	height: 14px;
+	margin: -2px 3px 0 0;
+	background: url(../images/myPage/star.png)  no-repeat 0 0;
+	overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    text-indent: -9999em;
+}
+
+.score_ty2 strong{
+	font-size: 15px;
+	display: inline-block;
+	font-family: "Roboto";
+	vertical-align: middle;
+}
+
+.review_info{
+	margin-bottom: 20px;
+	font-size: 13px;
+    position: relative;
+    left : -405px;
+}
+.btm_info .date_info{
+	font-size: 11px;
+	color : #666;
+	position: relative;
+    left : -412px;
+}
+
+
+.reivew_con_list li{
+	position: relative;
+    padding: 20px 0 15px 68px;
+    border-top: 1px solid #eee;
+}
+
+.reivew_con_list li .img_info{
+	display: block;
+    position: absolute;
+    top: 15px;
+    left: 30px;
+    overflow: hidden;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
+.reivew_con_list li .img_info img{
+	width: 100%;
+	border-radius: 50%;
+	border: none;
+    vertical-align: top;
+}
+.top_info {
+    margin-bottom: 14px;  
+    position: relative;
+}
+.name_info {
+    font-size: 12px;
+}
+
+.top_info .score_ty2{
+
+	font-size: 14px;
+    margin-right: 10px;
+}
+
+.score_ty2{
+
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.score_ty2 em{
+	width: 14px;
+	height: 14px;
+	margin: -2px 5px 0 0;
+	background: url(../images/myPage/star.png)  no-repeat 0 0;
+	overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    text-indent: -9999em;
+}
+
+.score_ty2 strong{
+	font-size: 15px;
+	display: inline-block;
+	font-family: "Roboto";
+	vertical-align: middle;
+}
+
+.review_info{
+	text-align : left;
+	margin-bottom: 20px;
+	font-size: 13px;
+	left: 10px;
+}
+.btm_info .date_info{
+	font-size: 11px;
+	color : #666;
+	margin-left : 10px;
+}
+

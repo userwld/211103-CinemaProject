@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.star.cinema.movie.dao.IGradeDAO">
+	<resultMap type="com.star.cinema.movie.dto.MovieDTO" id="movie">	
+		<result property="movieListNum" column="movieListNum"/>
+		<result property="movieName" column="movieName"/>
+		<result property="movieGenre" column="movieGenre"/>
+		<result property="movieDetail" column="movieDetail"/>
+		<result property="movieOpen" column="movieOpen"/>
+		<result property="movieDirector" column="movieDirector"/>
+		<result property="movieActors" column="movieActors"/>
+		<result property="movieAge" column="movieAge"/>
+		<result property="moviePoster" column="moviePoster"/>
+		<result property="movieCountry" column="movieCountry"/>
+		<result property="movieTime" column="movieTime"/>
+	</resultMap>
+	
+	
+	<resultMap type="com.star.cinema.movie.dto.GradeDTO" id="grade">
+		<result property="gradeNum" column="gradeNum"/>
+		<result property="grade" column="grade"/>
+		<result property="review" column="review"/>
+		<result property="likeCheck" column="likeCheck"/>
+		<result property="id" column="id"/>
+		<result property="movieListNum" column="movieListNum"/>
+		<result property="regDate" column="regDate"/>
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<resultMap type="com.star.cinema.movie.dto.TicketingDTO" id="ticketing">
+		<result property="ticketingNum" column="ticketingNum"/>
+		<result property="id" column="id"/>
+		<result property="seatName" column="seatName"/>
+		<result property="openDate" column="openDate"/>
+		<result property="openTime" column="openTime"/>
+		<result property="people" column="people"/>
+		<result property="totalPrice" column="totalPrice"/>
+		<result property="movieListNum" column="movieListNum"/>
+		<result property="cinemaNum" column="cinemaNum"/>
+		<result property="hallNum" column="hallNum"/>
+		<result property="moiveName" column="moiveName"/>	
+	</resultMap>
+
+	<select id="selectMovieNum" parameterType="int" resultMap="movie">
+		SELECT * FROM movieList WHERE movieListNum=#{movieListNum}
+	</select>
+
+	<select id="selectGrade" parameterType="int" resultMap="grade">
+		SELECT * FROM grade WHERE movieListNum=#{movieListNum} and review IS NOT NULL order by gradeNum desc
+	</select>
+
+	<select id="selectReserve" resultMap="ticketing">
+		SELECT * FROM (SELECT * FROM ticketing WHERE id=#{id} and movieListNum=#{n} ORDER BY openDate) WHERE ROWNUM=1
+	</select>
+	
+	<select id="selectMyGrade" resultMap="grade">
+		SELECT * FROM grade WHERE id=#{id} and movieListNum=#{n}
+	</select>
+	
+	<select id="selectTotalGrade" parameterType="int" resultType="double">
+		SELECT NVL(avg(grade),0) FROM grade WHERE movieListNum=#{movieListNum}
+	</select>
+	
+	<insert id="insertReview" parameterType="com.star.cinema.movie.dto.GradeDTO">
+		INSERT INTO grade VALUES(grade_seq.nextval,#{grade},#{review},0,#{id},#{movieListNum},#{regDate},#{name})
+	</insert>
+	
+	<update id="updateReview" parameterType="com.star.cinema.movie.dto.GradeDTO">
+		UPDATE grade SET grade=#{grade}, review=#{review}, regDate=#{regDate}, name=#{name} WHERE id=#{id} and movieListNum=#{movieListNum}
+	</update>
+	
+	<select id="selectTotalLike" parameterType="int" resultType="int">
+		SELECT count(*) FROM grade WHERE movieListNum=#{movieListNum} and likeCheck=1
+	</select>
+
+	<update id="updateLike">
+		UPDATE grade
+		<if test="condition == 'in'">
+			SET likeCheck=1
+		</if>
+		<if test="condition == 'out'">
+			SET likeCheck=0
+		</if>
+		WHERE movieListNum=#{movieListNum} and id=#{id}
+	</update>
+	
+	<insert id="insertLike">
+		INSERT INTO grade VALUES(grade_seq.nextval,'','',1,#{id},#{movieListNum},'','')
+	</insert>
+
+	<select id="selectMyLike" parameterType="String" resultMap="grade">
+		SELECT * FROM grade WHERE id=#{id} and likeCheck=1
+	</select>
+		
+	<select id = "selectRecentReview" parameterType="int" resultType="String">
+		SELECT review FROM(SELECT * FROM grade WHERE movieListNum = #{movieListNum} AND review IS NOT NULL ORDER BY gradeNum DESC) WHERE ROWNUM=1
+	</select>
+	
+	<select id="selectMyTickting" parameterType="String" resultMap="ticketing">
+		SELECT * FROM ticketing WHERE id=#{id} order by openDate desc
+	</select>
+	
+	<select id="selectRecentTicketing" parameterType="String" resultMap="ticketing">
+		SELECT * FROM ticketing WHERE id = #{id} AND openDate BETWEEN trunc(sysdate) - 30 AND trunc(sysdate)+7 ORDER BY openDate desc
+	</select>
+	
+	<select id="selectMyReview" resultType="String">
+		SELECT review FROM grade WHERE id=#{id} and movieListNum=#{movieListNum}
+	</select>
+	
+	<select id="selectCinemaName" parameterType="int" resultType="String">
+		SELECT cinemaName FROM cinema WHERE cinemaNum=#{cinemaNum}
+	</select>
+	
+	<select id="selectHallName" parameterType="int" resultType="String">
+		SELECT hallName FROM hall WHERE hallNum=#{hallNum}
+	</select>
+	
+	<select id="ticketingIdList" parameterType="int" resultType="String">
+		SELECT distinct id FROM ticketing WHERE movieListNum=#{movieListNum}
+	</select>
+	
+	<select id="isWoman" resultType="String">
+		SELECT id FROM member WHERE gender='w'
+	</select>
+		
+	<select id="preferYear" resultType="String">
+		SELECT id FROM member WHERE substr(birth,0,4) BETWEEN #{start} AND #{end}
+	</select>
+	
+
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.star.cinema.movie.dao.ITicketingDAO">
+	<select id="searchMovieListNum" resultType="int">
+		SELECT movieListNum FROM movielist WHERE movieName=#{movieName}
+	</select>
+	
+	<select id="searchCinemaNum" resultType="int">
+		SELECT cinemaNum FROM cinema WHERE cinemaName=#{cinemaName}
+	</select>
+	
+	<insert id="seatProc" parameterType="com.star.cinema.movie.dto.TicketingDTO">
+		INSERT INTO ticketing VALUES (ticketing_seq.nextval, #{id}, #{movieListNum}, #{cinemaNum},
+			#{hallNum}, #{seatName}, #{openDate}, #{openTime}, #{people}, #{totalPrice})
+	</insert>
+	
+	<delete id="deleteSeat">
+		DELETE * FROM ticketing WHERE id=#{id}
+	</delete>
+	
+</mapper>

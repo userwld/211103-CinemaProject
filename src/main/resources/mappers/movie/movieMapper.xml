@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.star.cinema.movie.dao.IMovieDAO">
+	<resultMap type="com.star.cinema.movie.dto.MovieDTO" id="movie">	
+		<result property="movieListNum" column="movieListNum"/>
+		<result property="movieName" column="movieName"/>
+		<result property="movieGenre" column="movieGenre"/>
+		<result property="movieDetail" column="movieDetail"/>
+		<result property="movieOpen" column="movieOpen"/>
+		<result property="movieDirector" column="movieDirector"/>
+		<result property="movieActors" column="movieActors"/>
+		<result property="movieAge" column="movieAge"/>
+		<result property="moviePoster" column="moviePoster"/>
+		<result property="movieCountry" column="movieCountry"/>
+		<result property="movieTime" column="movieTime"/>
+	</resultMap>
+	
+	<select id="movieList" resultMap="movie">
+		SELECT * FROM MovieList
+	</select>
+	
+	<delete id="deleteMovie">
+		DELETE FROM MovieList where MovieName LIKE '%'||#{movieName}||'%'
+	</delete>
+	
+	<select id="selectMovie" resultMap="movie">
+		SELECT * FROM MovieList where MovieName LIKE '%'||#{movieName}||'%'
+	</select>
+
+	<select id="searchMovie" resultMap="movie">
+		SELECT * FROM MovieList where movieListNum =#{movieListNum}
+	</select>
+	
+	<update id="changeMovie" parameterType="com.star.cinema.movie.dto.MovieDTO">
+		UPDATE MovieList SET movieName=#{movieName}, movieGenre=#{movieGenre}, movieDetail=#{movieDetail}, movieOpen=#{movieOpen}, movieDirector=#{movieDirector}, movieActors=#{movieActors},
+			movieAge=#{movieAge}, moviePoster=#{moviePoster}, movieCountry=#{movieCountry}, movieTime=#{movieTime} where movieListNum =#{movieListNum}
+	</update>
+	
+	<insert id="insertMovie" parameterType="com.star.cinema.movie.dto.MovieDTO">
+		INSERT INTO movieList values(
+			movie_list_seq.nextval, #{movieName}, #{movieGenre}, #{movieDetail}, #{movieOpen}, #{movieDirector}, #{movieActors},
+			#{movieAge}, #{moviePoster}, #{movieCountry}, #{movieTime})
+	</insert>
+	
+	<select id="selectDate" resultType="String">
+		SELECT movieopen FROM movieList
+	</select>
+	
+	<select id="movieCount" resultType="int">
+		SELECT count(*) FROM movieList
+	</select>
+	
+	<select id="movieListNum" resultType="int">
+		SELECT movieListNum FROM MovieList
+	</select>
+	
+	<select id="selectMovieListNum" resultType="int">
+   		SELECT movieListNum FROM movieList WHERE movieOpen=#{movieOpen}
+   </select>
+</mapper>

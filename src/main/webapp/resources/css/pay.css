@@ -1,0 +1,14 @@
+@charset "UTF-8";
+input, select, button {vertical-align:middle; appearance:none; -webkit-appearance:none; -moz-appearance:none;}
+input[type="radio"],
+input[type="checkbox"] {position:relative; top:0; left:0; width:0px; height:0px; padding:0; margin:0; overflow:hidden; clip:rect(0, 0, 0, 0); vertical-align:middle; border:none 0;}
+input[type="radio"] + label,
+input[type="checkbox"] + label {position:relative; display:inline-block; margin-right:20px; vertical-align:middle;}
+input[type="radio"] + label:last-of-type,
+input[type="checkbox"] + label:last-of-type {margin-right:0px;}
+input[type="checkbox"] + label:before {content:""; display:inline-block; border:1px solid #DDD; background-color:#fff; width:18px; height:18px; margin-right:5px; vertical-align:-5px; -webkit-border-radius:3px; border-radius:3px; -moz-border-radius:3px; -ms-border-radius:3px; -o-border-radius:3px;}
+input[type="checkbox"] + label.disabled:before {display: none;}
+input[type="checkbox"]:checked + label:before {border-color:#000; background:#fff url("../images/icon/chk_8.png") no-repeat center 6px;}
+input[type="checkbox"] + label.ty2:before {border-color:#BEBEBE; border-radius:50%; background:#fff url("../images/icon/chk_8_2.png") no-repeat center 6px; vertical-align:-5px; -webkit-border-radius:50%; -moz-border-radius:50%; -ms-border-radius:50%; -o-border-radius:50%;}
+input[type="checkbox"]:checked + label.ty2:before {border-color:#000; background:#000 url("../images/icon/chk_8_3.png") no-repeat center 6px;}
+input[type="checkbox"] + label.ty2.disabled:before {border-color:#BEBEBE; pointer-events:none; cursor:default; background:#BEBEBE url("../images/icon/chk_disabled_14.png") no-repeat center center;}
