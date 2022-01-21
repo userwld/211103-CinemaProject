@@ -1,6 +1,8 @@
 package com.star.cinema.myPage.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -157,32 +159,23 @@ public class MyPageServiceImpl implements IMyPageService {
 		
 		return true;
 	}	
-	/* 리뷰 작성 위해 시간 구하기 -> 현재시간보다 작아야 리뷰작성가능*/
-	public String timeCalc(String day, String oldTime, String runningTime){
+	
+	// 리뷰 작성을 위한 시간계산 -> 영화관람시간(+러닝타임)보다 현재시각이 늦어야 리뷰작성 가능 
+	// 220121 Calendar 라이브러리 사용하는 걸로 메소드 수정 
+	public String timeCalc(String day, String oldTime, String runningTime) {
+		int year = Integer.parseInt(day.substring(0,4));
+		int month = Integer.parseInt(day.substring(5,7));
+		int date = Integer.parseInt(day.substring(8));
+		int hour = Integer.parseInt(oldTime.substring(0,2));
+		int min = Integer.parseInt(oldTime.substring(3));						
+		int plusM = Integer.parseInt(runningTime);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+
+		Calendar cal = Calendar.getInstance();		
+		cal.set(year, month-1, date, hour, min);
+		cal.add(Calendar.MINUTE, plusM);
 		
-		String oldH = oldTime.substring(0,2);
-		String oldM = oldTime.substring(3);
-		
-		int n = Integer.parseInt(runningTime);
-		int h = Integer.parseInt(oldH);
-		int m = Integer.parseInt(oldM);
-		
-		int plusH = n / 60;
-		int plusM = n % 60;
-			
-		int newH =h+plusH;
-		int newM = m+plusM;
-		
-		if(newM > 60){
-			newH+=1;
-			newM-=60;
-		}
-		
-		String lastM = newM+"";
-		String lastH = newH+"";
-		if(lastM.length() == 1) lastM = "0"+lastM;
-		if(lastH.length() == 1) lastH = "0"+lastH;
-		
-		return day+"-"+lastH+"-"+lastM;
+//		System.out.println(sdf.format(cal.getTime()));
+		return sdf.format(cal.getTime());		
 	}
 }
