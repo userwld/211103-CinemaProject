@@ -113,7 +113,7 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 		MovieDTO movie = selectMovieNum(movieListNum);
 		
 		MyPageServiceImpl svc = new MyPageServiceImpl();
-		String reviewTime = svc.timeCalc(ticket.getOpenDate(), ticket.getOpenTime(), movie.getMovieTime());
+		String reviewTime = svc.reviewCalc(ticket.getOpenDate(), ticket.getOpenTime(), movie.getMovieTime());
 		reviewTime = reviewTime.replaceAll("-", "");
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");

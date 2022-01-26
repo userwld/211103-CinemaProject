@@ -20,6 +20,7 @@ public class MyPageController {
 	final static Logger logger = LoggerFactory.getLogger(MyPageController.class);
 	@Autowired IMyPageService service;
 	
+	/* 마이페이지 - 1:1문의내역 또는 하위 1:1문의리스트 클릭시*/
 	@RequestMapping(value="/myQuestionList")
 	public String myQuestionList(@RequestParam(value = "currentPage", required = false, defaultValue = "1")int currentPage, Model model) {
 		boolean check = service.myQuestionList(model, currentPage);
@@ -29,6 +30,7 @@ public class MyPageController {
 		return "forward:index?formpath=myQuestion";
 	}
 	
+	/* 마이페이지 - 정보관리 - 정보수정*/
 	@RequestMapping(value="/modifyProc", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,String> modifyProc(String pw, String pwChk, String phone1, String phone2, String phone3, String zipcode, String addr1, String addr2) {
@@ -43,6 +45,7 @@ public class MyPageController {
 		return map;
 	}
 	
+	/* 마이페이지 - 정보관리 - 회원탈퇴 */
 	@RequestMapping(value="/deleteProc")
 	public String deleteProc(String deleteCheck) {
 		if(deleteCheck == null) return "forward:index?formpath=memberDelete";
@@ -50,13 +53,15 @@ public class MyPageController {
 		return "forward:logoutRequest";
 	}
 	
+	/* 마이페이지 - 찜목록 */
 	@RequestMapping(value="/myLikeProc")
 	public String myLikeProc(Model model) {
 		boolean check = service.myLikeProc(model); 
 		if(check == false) return "forward:index?formpath=login";	
 		return "forward:index?formpath=myLike";	
 	}
-
+	
+	/* 마이페이지 - 예매내역(최근 한달 내 예매내역만 출력 - recent로 구분) */
 	@RequestMapping(value="/ticketingHistory")
 	public String ticketingHistory(Model model) {
 		String recent = "recent";
@@ -65,6 +70,7 @@ public class MyPageController {
 		return "forward:index?formpath=myPage";
 	}
 	
+	/* 마이페이지 - 관람내역(전체 관람내역 출력) */
 	@RequestMapping(value="/movieHistory")
 	public String movieHistory(Model model) {
 		String recent = "all";

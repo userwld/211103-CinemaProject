@@ -2,7 +2,7 @@ package com.star.cinema.member.config;
 
 public class PageConfig {
 	public static int[] setPage(int totalCount, int currentPage) {
-		int pageBlock = 10;
+		int pageBlock = 10;			// 한 페이지당 10개씩 
 		int end = currentPage * pageBlock;
 		int begin = end + 1 - pageBlock;
 		

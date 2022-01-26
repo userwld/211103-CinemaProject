@@ -15,6 +15,6 @@ public interface IMyPageService {
 
 	public boolean ticketingHistory(Model model, String recent);
 	
-	public String timeCalc(String day, String oldTime, String runningTime);
+	public String reviewCalc(String day, String oldTime, String runningTime);
 	
 }
