@@ -252,9 +252,7 @@ $(document).ready(function(){
 		</div>
 		<input type="button" class="btn_submit" value="관람평 작성" onclick="reivewWrite(${movie.movieListNum});">
 	</div>
-	
-	
-	
+		
 	<div class="review_list">
 		<div class="review_top">
 			<div class="total_info">총<em>${grade.size()}</em>건</div>
@@ -282,8 +280,12 @@ $(document).ready(function(){
 						</div>
 						<div class="review_info">${gr.review}</div>
 						<div class="btm_info">
-							<span class="date_info">${gr.regDate} 등록</span>
+							<span class="date_info">${gr.regDate} 등록</span>		<!-- 리뷰삭제 -작성자와 관리자만 가능 -->
+							<c:if test="${loginInfo.id == gr.id or loginInfo.id == 'admin'}">
+								<span class="reviewDelete" onclick="reviewDelete(${movie.movieListNum});">삭제</span>
+							</c:if>	
 						</div>
+						
 					</li>
 				</c:forEach>
 			</c:when>

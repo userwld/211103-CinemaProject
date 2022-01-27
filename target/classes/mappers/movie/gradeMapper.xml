@@ -66,7 +66,12 @@
 	</insert>
 	
 	<update id="updateReview" parameterType="com.star.cinema.movie.dto.GradeDTO">
-		UPDATE grade SET grade=#{grade}, review=#{review}, regDate=#{regDate}, name=#{name} WHERE id=#{id} and movieListNum=#{movieListNum}
+		UPDATE grade SET review=#{review}, regDate=#{regDate}, name=#{name},
+		<choose>
+			<when test="grade == 0"> grade = '' </when>
+			<otherwise> grade=#{grade} </otherwise>
+		</choose>
+		WHERE id=#{id} and movieListNum=#{movieListNum}
 	</update>
 	
 	<select id="selectTotalLike" parameterType="int" resultType="int">
@@ -127,6 +132,10 @@
 	<select id="preferYear" resultType="String">
 		SELECT id FROM member WHERE substr(birth,0,4) BETWEEN #{start} AND #{end}
 	</select>
+	
+	<delete id="deleteReview">
+		DELETE FROM grade WHERE id=#{id} AND movieListNum=#{movieListNum}
+	</delete>
 	
 
 </mapper>

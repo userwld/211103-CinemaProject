@@ -613,6 +613,13 @@ a, a:link, a:visited, a:active, a:hover{
     left : -412px;
 }
 
+.btm_info .reviewDelete{
+    font-size: 12px;  
+    color : red;
+    position: relative;
+    left : -405px;
+    cursor: pointer;
+}
 
 .reivew_con_list li{
 	position: relative;

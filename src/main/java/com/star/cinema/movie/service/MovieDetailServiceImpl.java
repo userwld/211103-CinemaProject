@@ -84,7 +84,7 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 		return "등록이 완료되었습니다.";
 	}
 
-	@Override	/**/
+	@Override	
 	public String likeCalcProc(Map<String, String> map) {
 		if((MemberDTO)session.getAttribute("loginInfo") == null) return "로그인 후 이용가능합니다.";
 		
@@ -103,12 +103,12 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 		return "좋아요가 반영되었습니다.";
 	}
 
-	@Override	/**/
+	@Override	
 	public int totalLike(int movieListNum) {
 		return dao.selectTotalLike(movieListNum);
 	}
 	
-	/**/
+	
 	public boolean enableReview(int movieListNum, String id) {
 		TicketingDTO ticket = selectReserve(id, movieListNum);
 		MovieDTO movie = selectMovieNum(movieListNum);
@@ -126,7 +126,7 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 
 	}
 	
-	/**/
+	
 	public double[] preferGender(int movieListNum) {
 		ArrayList<String>idList = dao.ticketingIdList(movieListNum);
 		double[] prefer = {0.0, 0.0};	// 첫번째 여자, 두번째 남자
@@ -146,7 +146,7 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 		return prefer;
 	}	
 	
-	/**/
+	
 	public double[] preferAge(int movieListNum) {
 		double[] agePercent = {0.0,0.0,0.0,0.0};
 		ArrayList<String>idList = dao.ticketingIdList(movieListNum);
@@ -175,7 +175,7 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 		return agePercent;
 	}
 	
-	/**/	
+		
 	public double[] movieRank(int movieListNum) {
 		double[] rank = {0,0};
 		ArrayList<Integer> gc = chartDao.groupCount();
@@ -186,6 +186,24 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 		if(mc > 0 && tc > 0) rank[1] = mc/(double)tc * 100;
 		
 		return rank;
+	}
+
+	@Override	/* 영화상세페이지 - 리뷰삭제 */
+	public String reviewDeleteProc(Map<String, String> map) {
+		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+		if(dto == null) return "로그인 후 이용가능합니다.";
+		
+		int movieListNum = Integer.parseInt(map.get("movieListNum"));
+		GradeDTO grade = dao.selectMyGrade(dto.getId(), movieListNum);
+		
+		if(grade.getLikeCheck() == 1) {						// 해당 영화가 해당 아이디의 찜목록에 있는 경우, 평점,리뷰,리뷰작성일,작성자만 초기화
+			grade.setGrade(0); grade.setName(""); grade.setRegDate(""); grade.setReview("");
+			dao.updateReview(grade);
+		}else {
+			dao.deleteReview(dto.getId(), movieListNum);	// 찜목록에 없는경우 리뷰 전체 삭제
+		}
+				
+		return "리뷰 삭제 완료";
 	}
 	
 	

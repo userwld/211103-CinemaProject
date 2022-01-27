@@ -31,4 +31,6 @@ public interface IMovieDetailService {
 	
 	public double[] movieRank(int movieListNum);
 
+	public String reviewDeleteProc(Map<String, String> map);
+
 }

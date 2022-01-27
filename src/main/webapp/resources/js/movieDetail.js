@@ -77,6 +77,28 @@ function likeCalc(n){
 			}
 	})	
 }	
-			
+
+
+function reviewDelete(n){
+	var info = {movieListNum : n};
+	
+	$.ajax({		
+			url: "reviewDeleteProc", type: "POST",		
+			data: JSON.stringify(info), 			
+			contentType: "application/json; charset=utf-8", 	
+			dataType: "json", 
+		
+			success : function(result){		
+				alert(result.msg);
+				if(result.msg != '로그인 후 이용가능합니다.'){
+					location.reload();
+				}
+			},
+			error : function(){
+				alert('통신실패');
+			}
+	})	
+}	
+						
 	
 	

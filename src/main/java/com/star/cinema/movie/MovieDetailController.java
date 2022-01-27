@@ -63,5 +63,12 @@ public class MovieDetailController {
 		return map;
 	}
 	
+	/* 영화상세페이지 - 리뷰삭제 */
+	@RequestMapping(value="/reviewDeleteProc", produces = "application/json; charset=utf-8", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,String> reviewDeleteProc(@RequestBody Map<String,String> map) {
+		map.put("msg", service.reviewDeleteProc(map));
+		return map;
+	}
 	
 }
