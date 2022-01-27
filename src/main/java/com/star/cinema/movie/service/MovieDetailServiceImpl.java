@@ -26,33 +26,33 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 	@Autowired IGradeDAO dao;
 	@Autowired IChartDAO chartDao;
 	
-	@Override
+	@Override	/* 영화번호로 영화정보(MovieDTO) 얻어옴*/
 	public MovieDTO selectMovieNum(int movieListNum) {		
 		return dao.selectMovieNum(movieListNum);
 	}
 	
-	@Override
+	@Override	/* 영화번호로 해당 영화의 사용자 각각의 평점과 리뷰, 작성자를 리스트로 저장 -> movieDetail.jsp에서 각 사용자들의 평점과 리뷰 출력*/
 	public ArrayList<GradeDTO> selectGrade(int movieListNum) {		
 		return dao.selectGrade(movieListNum);
 	}
 	
-	@Override
+	@Override	/* 해당 아이디가 해당 영화에 대한 예매내역이 있는지 확인 -> 예매내역 얻어오는데 예매일 오름차순으로 1개만 얻어옴 -> 동일 영화에 대한 예매내역이 있을 경우, 빠른 예매일의 리뷰가능시간에 충족하면 리뷰달수있게 */
 	public TicketingDTO selectReserve(String id, int movieListNum) {		
 		return dao.selectReserve(id, movieListNum);
 	}
 	
-	@Override
+	@Override	/* 해당아이디가 해당영화에 남긴 평점과 리뷰 얻어옴*/
 	public GradeDTO selectMyGrade(String id, int movieListNum) {		
 		return dao.selectMyGrade(id, movieListNum);
 	}
 	
-	@Override
+	@Override	/* 해당 영화의 평점의 평균(avg) */
 	public double selectTotalGrade(int movieListNum) {
 		return dao.selectTotalGrade(movieListNum);
 	}
 
-	@Override
-	public String reviewWriteProc(Map<String, String> map) {
+	@Override	/* 리뷰작성 */
+	public String reviewWriteProc(Map<String, String> map) { 	// map에 영화번호(movieListNum), 평점(grade), 리뷰(review)가 key로 각각의 값이 value로 담겨서 전달
 		if((MemberDTO)session.getAttribute("loginInfo") == null) return "로그인 후 이용가능합니다.";
 		
 		int movieListNum = Integer.parseInt(map.get("movieListNum"));
@@ -64,7 +64,7 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 		String regDate = sdf.format(new Date());
 		
-		StringBuilder sb = new StringBuilder(dto.getName());
+		StringBuilder sb = new StringBuilder(dto.getName());	// 작성자 이름의 1번 index *로 치환
 		sb.setCharAt(1, '*');
 				
 		GradeDTO grade = selectMyGrade(dto.getId(), movieListNum);
@@ -76,7 +76,7 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 		
 		if(grade!= null) {
 			if(grade.getReview() != null ) return "이미 리뷰를 작성한 영화입니다.";		
-			else dao.updateReview(dataGrade); // 찜을 해서 이미 db에 있는 상태면 평점/리뷰 update
+			else dao.updateReview(dataGrade); // 찜을 해서 이미 db에 있지만 리뷰는 등록이 안된 경우 update
 		}else {																	
 			dao.insertReview(dataGrade);	  // db에 없는 상태면 insert
 		}
@@ -84,7 +84,7 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 		return "등록이 완료되었습니다.";
 	}
 
-	@Override
+	@Override	/**/
 	public String likeCalcProc(Map<String, String> map) {
 		if((MemberDTO)session.getAttribute("loginInfo") == null) return "로그인 후 이용가능합니다.";
 		
@@ -103,11 +103,12 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 		return "좋아요가 반영되었습니다.";
 	}
 
-	@Override
+	@Override	/**/
 	public int totalLike(int movieListNum) {
 		return dao.selectTotalLike(movieListNum);
 	}
-
+	
+	/**/
 	public boolean enableReview(int movieListNum, String id) {
 		TicketingDTO ticket = selectReserve(id, movieListNum);
 		MovieDTO movie = selectMovieNum(movieListNum);
@@ -125,6 +126,7 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 
 	}
 	
+	/**/
 	public double[] preferGender(int movieListNum) {
 		ArrayList<String>idList = dao.ticketingIdList(movieListNum);
 		double[] prefer = {0.0, 0.0};	// 첫번째 여자, 두번째 남자
@@ -144,6 +146,7 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 		return prefer;
 	}	
 	
+	/**/
 	public double[] preferAge(int movieListNum) {
 		double[] agePercent = {0.0,0.0,0.0,0.0};
 		ArrayList<String>idList = dao.ticketingIdList(movieListNum);
@@ -171,7 +174,8 @@ public class MovieDetailServiceImpl implements IMovieDetailService {
 		}
 		return agePercent;
 	}
-		
+	
+	/**/	
 	public double[] movieRank(int movieListNum) {
 		double[] rank = {0,0};
 		ArrayList<Integer> gc = chartDao.groupCount();

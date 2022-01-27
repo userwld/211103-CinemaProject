@@ -22,7 +22,7 @@ public class MovieDetailController {
 	final static Logger logger = LoggerFactory.getLogger(MovieDetailController.class);
 	@Autowired IMovieDetailService service;
 	
-	
+	/* 영화상세정보 페이지*/
 	@RequestMapping(value = "/movieDetailProc")
 	public String movieDetailProc(int movieListNum, Model model) {
 		
@@ -30,9 +30,9 @@ public class MovieDetailController {
 		ArrayList<GradeDTO> grade = service.selectGrade(movieListNum);
 		double totalGrade = service.selectTotalGrade(movieListNum);
 		int totalLike = service.totalLike(movieListNum);
-		double[] prefer = service.preferGender(movieListNum);
-		double[] ageList = service.preferAge(movieListNum);
-		double[] rank = service.movieRank(movieListNum);
+		double[] prefer = service.preferGender(movieListNum);			// 해당 영화의 성별 선호도
+		double[] ageList = service.preferAge(movieListNum);				// 해당 영화의 연령별 선호도
+		double[] rank = service.movieRank(movieListNum);				// 해당 영화의 예매율 순위/예매율
 		
 		model.addAttribute("movie", movie);
 		model.addAttribute("grade", grade);
@@ -45,7 +45,7 @@ public class MovieDetailController {
 		return "forward:index?formpath=movieDetail";
 	}
 	
-	
+	/* 영화상세페이지 - 리뷰작성 */
 	@RequestMapping(value="/reivewWriteProc", produces = "application/json; charset=utf-8", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,String> reivewWriteProc(@RequestBody Map<String,String> map) {
@@ -54,6 +54,7 @@ public class MovieDetailController {
 		return map;
 	}
 	
+	/* 영화상세페이지 - 찜하기 */
 	@RequestMapping(value="/likeCalcProc", produces = "application/json; charset=utf-8", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,String> likeCalcProc(@RequestBody Map<String,String> map) {
