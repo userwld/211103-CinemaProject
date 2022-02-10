@@ -1,5 +1,6 @@
 package com.star.cinema.member;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -11,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.star.cinema.member.config.KakaoConfig;
 import com.star.cinema.member.dto.MemberDTO;
 import com.star.cinema.member.service.IMemberService;
 
 @Controller
 public class LoginController {
 	@Autowired IMemberService service;
+	@Autowired KakaoConfig kakao;
 	
 	
 	@ResponseBody
@@ -36,6 +39,16 @@ public class LoginController {
 		if (session.getAttribute("loginInfo") != null) {
 			session.removeAttribute("loginInfo");
 		}
+		return "forward:index";
+	}
+	
+	@RequestMapping(value = "kakaoLogin")	
+	public String kakaoLogin(String code, HttpSession session) {
+		String accessToken = kakao.getAccessToken(code);	
+		HashMap<String, Object> userInfo = kakao.getUserInfo(accessToken); 
+		
+		session.setAttribute("id", userInfo.get("nickname"));	
+		session.setAttribute("accessToken", accessToken);	
 		return "forward:index";
 	}
 
