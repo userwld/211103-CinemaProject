@@ -8,7 +8,6 @@
 <title>롯지브이</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/content.css" />
 	
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
