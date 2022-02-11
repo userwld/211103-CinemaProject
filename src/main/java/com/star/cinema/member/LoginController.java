@@ -49,7 +49,25 @@ public class LoginController {
 		
 		session.setAttribute("id", userInfo.get("nickname"));	
 		session.setAttribute("accessToken", accessToken);	
+				
 		return "forward:index";
 	}
 
+
+	@RequestMapping(value="kakaoLogout")
+	public String kakaoLogout(HttpSession session) {		
+		
+		String accessToken = (String)session.getAttribute("accessToken");
+		if(accessToken != null) {
+			kakao.logout(accessToken);
+		}
+		
+		session.removeAttribute(accessToken);
+		session.removeAttribute("id");
+		
+		return "forward:index";
+	}
+	
+
+	
 }

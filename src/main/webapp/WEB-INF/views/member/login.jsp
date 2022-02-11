@@ -34,11 +34,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <c:set var = "redirectUri" value = "http://localhost:8085/cinema/kakaoLogin"/>	
-								<c:set var = "restKey" value = "24d1826f93f5ef832e2398885563dee4"/>			
-                                
+                                                               		                   
                                  <div class="social" style="width : 400px; position: relative; top: -220px; left: 550px;">
+                                 
+                                 	<c:set var = "redirectUri" value = "http://localhost:8085/cinema/kakaoLogin"/>	<!-- 로그인과 로그아웃 둘다 http로 해야 파싱오류 안남 (https오류) -->
+									<c:set var = "restKey" value = "24d1826f93f5ef832e2398885563dee4"/>	
+									
                                   	<p class="social_p" style="font-size:14px; margin-bottom : 20px;">Kakao Login으로도 예매 가능합니다.</p>
                                   	<a href="https://kauth.kakao.com/oauth/authorize?client_id=${restKey }&redirect_uri=${redirectUri }&response_type=code">
                                   		<img src="${pageContext.request.contextPath}/resources/images/kakao.png">

@@ -30,12 +30,23 @@
 				<li><a href="index?formpath=movieManagement">영화관리</a></li>
 				<li><a href="${root }memberListProc">회원관리</a></li>
 			</c:if>
-				<li><a href="${root }customerList">고객센터</a></li>
-				<%if (session.getAttribute("loginInfo") != null) {%>
-					<li onclick="logOut()"><a href="#">로그아웃</a></li>
-				<% } else { %>
-					<li><a href="index?formpath=login">로그인</a></li>
-				<% } %>
+				<li><a href="${root }customerList">고객센터</a></li>	
+				<!-- 소셜 로그인 추가로 인한 변경 -->
+				<c:choose>
+					<c:when test="${not empty loginInfo }">		
+						<li><a href="#" onclick="logOut()">로그아웃</a></li>
+					</c:when>
+					
+					<c:when test="${not empty id }">					
+				     	<c:set var = "redirectUri" value = "http://localhost:8085/cinema/kakaoLogout"/>	
+						<c:set var = "restKey" value = "24d1826f93f5ef832e2398885563dee4"/>	
+						<li><a href="https://kauth.kakao.com/oauth/logout?client_id=${restKey }&logout_redirect_uri=${redirectUri }">카카오 로그아웃</a></li>
+					</c:when>
+					
+					<c:otherwise>
+						<li><a href="index?formpath=login">로그인</a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 			<ul class="g_menu3">
 				<%if (session.getAttribute("loginInfo") != null) {%>

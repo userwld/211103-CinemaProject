@@ -92,8 +92,15 @@ public class KakaoConfig {
 	        JsonParser parser = new JsonParser();
 	        JsonElement element = parser.parse(result);
 	        JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-	        String nickname = properties.getAsJsonObject().get("nickname").getAsString();	// properties에서 동의한 항목 키 통해서 값 얻을 수 있음!
-	        userInfo.put("nickname", nickname);
+	        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+	        
+	        String nickname = properties.getAsJsonObject().get("nickname").getAsString();	// properties에서 닉네임(이름) 추출
+	        String gender = "";
+	        
+	        if(kakao_account.getAsJsonObject().get("gender") != null)
+	        	gender = kakao_account.getAsJsonObject().get("gender").getAsString();	// kakao_account에서 성별 추출(선택사항이므로 null 체크)
+	        
+	        userInfo.put("nickname", nickname); userInfo.put("gender", gender);
 	        
 	    } catch (IOException e) {
 	        e.printStackTrace();
@@ -108,6 +115,7 @@ public class KakaoConfig {
 	    try {
 	        URL url = new URL(reqURL); // URL 객체 생성
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection(); 
+	        
 	        conn.setRequestMethod("POST"); // 메소드 설정
 	        
 	        // 요청 정보 헤더에 담기.

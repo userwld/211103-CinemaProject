@@ -30,8 +30,8 @@ public class TicketingController {
 	@Autowired IManageService manageService;
 	
 	@RequestMapping(value = "/ticketing")
-	public String ticketing(Model model, HttpSession session) {
-		if (session.getAttribute("loginInfo") == null) {
+	public String ticketing(Model model, HttpSession session) {	/* 카카오 로그인도 예매 가능하게 */
+		if (session.getAttribute("loginInfo") == null && session.getAttribute("id") == null) {
 			return "member/login";
 		}
 		List<MovieDTO> movieList = movieService.movieList();
