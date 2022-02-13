@@ -35,7 +35,11 @@ public class SeatServiceImpl implements ISeatService{
 		dto.setCinemaNum(cinemaNum);
 		
 		MemberDTO member = (MemberDTO)session.getAttribute("loginInfo");
-		String id = member.getId();
+		String id = "";
+		
+		if(member != null) id = member.getId();			// 롯지브이 회원의 경우
+		else id = (String)session.getAttribute("id");	// 카카오 로그인의 경우
+		
 		dto.setId(id);
 		dto.setHallNum(hall.getHallNum());
 		

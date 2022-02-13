@@ -129,7 +129,15 @@ $(document).ready(function(){
 						</button>
 					</li>
 					<li>
-						<a class="reserve_a" href='index?formpath=ticketing'>예매하기</a>
+						<c:set var = "redirectUri" value = "http://localhost:8085/cinema/kakaoReserve"/>	
+						<c:set var = "restKey" value = "24d1826f93f5ef832e2398885563dee4"/>	
+						<c:choose>
+							<c:when test="${not empty id }">
+			               		<a class="reserve_a" href="https://kauth.kakao.com/oauth/authorize?client_id=${restKey }&redirect_uri=${redirectUri }&response_type=code&scope=age_range,gender,birthday">예매하기</a>
+							</c:when>
+							<c:otherwise><a href="index?formpath=ticketing" class="reserve_a">예매하기</a></c:otherwise>
+						</c:choose> 
+						
 					</li>				
 				</ul>
 			</div>

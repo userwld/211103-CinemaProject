@@ -244,12 +244,17 @@ public class ManageServiceImpl implements IManageService {
 		session.setAttribute("selectTicket", info);
 		
 		MemberDTO member = (MemberDTO) session.getAttribute("loginInfo");
-		String[] birth = member.getBirth().split("-");
-		
-		MemberCheck check = new MemberCheck();
-		int age = check.calcAge(Integer.parseInt(birth[0]), Integer.parseInt(birth[1]), Integer.parseInt(birth[2]));
+		if(member != null) {
+			String[] birth = member.getBirth().split("-");
+			
+			MemberCheck check = new MemberCheck();
+			int age = check.calcAge(Integer.parseInt(birth[0]), Integer.parseInt(birth[1]), Integer.parseInt(birth[2]));
 
-		return Integer.parseInt(movie.getMovieAge()) < age;
+			return Integer.parseInt(movie.getMovieAge()) < age;
+		}else {
+			return true;
+		}
+		
 	}
 	
 	@Override

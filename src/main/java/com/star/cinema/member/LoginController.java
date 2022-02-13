@@ -44,7 +44,8 @@ public class LoginController {
 	
 	@RequestMapping(value = "kakaoLogin")	
 	public String kakaoLogin(String code, HttpSession session) {
-		String accessToken = kakao.getAccessToken(code);	
+		String state = "login";
+		String accessToken = kakao.getAccessToken(code, state);	
 		HashMap<String, Object> userInfo = kakao.getUserInfo(accessToken); 
 		
 		session.setAttribute("id", userInfo.get("nickname"));	
@@ -64,8 +65,24 @@ public class LoginController {
 		
 		session.removeAttribute(accessToken);
 		session.removeAttribute("id");
+		session.removeAttribute("userInfo");
 		
 		return "forward:index";
+	}
+	
+	@RequestMapping(value="kakaoReserve")	// 예매시, 성별과 나이대 정보를 추가로 얻기 위해 정보 동의 요청 -> 토큰 다시얻음
+	public String kakaoReserve(String code, HttpSession session) {
+		
+		if(session.getAttribute("userInfo") == null) {
+			String state = "info";			// 로그인인지, 예매시 추가 정보동의를 위한 것인지 구분하기 위한 파라미터(이걸로 redirectUri구분)
+			String accessToken = kakao.getAccessToken(code,state);
+			HashMap<String, Object> userInfo = kakao.getUserInfo(accessToken); 
+			
+			session.setAttribute("accessToken", accessToken);	
+			session.setAttribute("userInfo", userInfo);
+		}
+	
+		return "forward:index?formpath=ticketing";
 	}
 	
 

@@ -34,6 +34,7 @@ public class TicketingController {
 		if (session.getAttribute("loginInfo") == null && session.getAttribute("id") == null) {
 			return "member/login";
 		}
+
 		List<MovieDTO> movieList = movieService.movieList();
 		model.addAttribute("movieList", movieList);
 		

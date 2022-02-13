@@ -64,6 +64,9 @@ $(document).ready(function(){
 		      </li>
 		    </ul>
 		  </div>
+		  
+	<c:set var = "redirectUri" value = "http://localhost:8085/cinema/kakaoReserve"/>	
+	<c:set var = "restKey" value = "24d1826f93f5ef832e2398885563dee4"/>		  
 			
 	<!-- 멀티플 슬라이드1 -->
 	<div class="multiple_whole">
@@ -78,7 +81,12 @@ $(document).ready(function(){
 								<li>
 									<div class="boxBg${status.count }" style="background-image:url('${pageContext.request.contextPath}/resources/images/poster/${movieList.getMoviePoster() }');" onmouseover="bgOpacity(${status.count });" onmouseout="bgOpacityReset(${status.count });">
 										<div class="boxBtn${status.count }">	<!-- 마우스오버시 배경만 어둡게 하기위해 영역지정 -->
-											<button id="reserve_btn" class="reserve_btn${status.count }" onclick="javascript:location.href='index?formpath=ticketing';">예매하기</button>
+										<c:choose>
+											<c:when test="${not empty id }">
+							               		<button id = "reserve_btn" class="reserve_btn${status.count }" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=${restKey }&redirect_uri=${redirectUri }&response_type=code&scope=age_range,gender,birthday'">예매하기</button>
+											</c:when>
+											<c:otherwise><button id="reserve_btn" class="reserve_btn${status.count }" onclick="javascript:location.href='index?formpath=ticketing';">예매하기</button></c:otherwise>
+										</c:choose> 
 											<button id="detail_btn" class="detail_btn${status.count }" onclick="javascript:location.href='movieDetailProc?movieListNum=${movieList.getMovieListNum() }';">상세정보</button>
 										</div>
 									</div>
@@ -111,8 +119,14 @@ $(document).ready(function(){
 								<c:set var="gcnt" value="${gcnt + 1}"/>
 									<li>
 										<div class="gradeBoxBg${index.count }" style="background-image:url('${pageContext.request.contextPath}/resources/images/poster/${mList.getMoviePoster() }');" onmouseover="bgOpacity2(${index.count });" onmouseout="bgOpacityReset2(${index.count });">
-											<div class="gradeBoxBtn${index.count }">	
-												<button id="gradeReserve_btn" class="gradeReserve_btn${index.count }" onclick="javascript:location.href='index?formpath=ticketing';">예매하기</button>
+											<div class="gradeBoxBtn${index.count }">
+												<c:choose>
+													<c:when test="${not empty id }">
+									               		<button id = "gradeReserve_btn" class="gradeReserve_btn${index.count}" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=${restKey }&redirect_uri=${redirectUri }&response_type=code&scope=age_range,gender,birthday'">예매하기</button>
+													</c:when>
+													<c:otherwise><button id="gradeReserve_btn" class="gradeReserve_btn${index.count }" onclick="javascript:location.href='index?formpath=ticketing';">예매하기</button></c:otherwise>
+												</c:choose> 	
+												
 												<button id="gradeDetail_btn" class="gradeDetail_btn${index.count }" onclick="javascript:location.href='movieDetailProc?movieListNum=${mList.getMovieListNum() }';">상세정보</button>
 											</div>
 										</div>

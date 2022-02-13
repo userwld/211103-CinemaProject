@@ -19,15 +19,17 @@ import com.google.gson.JsonParser;
 public class KakaoConfig {
 	
 	//https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#refresh-token
-	public String getAccessToken (String code) {
+	public String getAccessToken (String code, String state) {
 		String accessToken = "";
 		String reqURL = "https://kauth.kakao.com/oauth/token";
+		String redirectUri = "&redirect_uri=http://localhost:8085/cinema/kakaoLogin";
+		if(state.equals("info")) redirectUri = "&redirect_uri=http://localhost:8085/cinema/kakaoReserve";
 		try {
 			String sendMessage = "grant_type=authorization_code" 
 					+ "&client_id=24d1826f93f5ef832e2398885563dee4"  // RestAPI key를 넣음!
-					+"&redirect_uri=http://localhost:8085/cinema/kakaoLogin" 
+					+ redirectUri
 					+ "&code=" + code;
-		
+
 			URL url = new URL(reqURL); 
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();	
 			conn.setRequestMethod("POST");
@@ -77,8 +79,7 @@ public class KakaoConfig {
 	        
 	        // 요청에 필요한 Header에 포함될 내용
 	        conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-	        
-	        
+	                
 	        int responseCode = conn.getResponseCode();
 	        System.out.println("responseCode : " + responseCode);
 	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -95,12 +96,18 @@ public class KakaoConfig {
 	        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 	        
 	        String nickname = properties.getAsJsonObject().get("nickname").getAsString();	// properties에서 닉네임(이름) 추출
-	        String gender = "";
+	        String gender = "", age_range = "", birthday = "";
 	        
 	        if(kakao_account.getAsJsonObject().get("gender") != null)
-	        	gender = kakao_account.getAsJsonObject().get("gender").getAsString();	// kakao_account에서 성별 추출(선택사항이므로 null 체크)
+	        	gender = kakao_account.getAsJsonObject().get("gender").getAsString();	// kakao_account에서 성별 추출(예매시 정보수집하므로 null체크)
 	        
-	        userInfo.put("nickname", nickname); userInfo.put("gender", gender);
+	        if(kakao_account.getAsJsonObject().get("age_range") != null)
+	        	age_range = kakao_account.getAsJsonObject().get("age_range").getAsString();	// kakao_account에서 나이대 추출(예매시 정보수집하므로 null체크)
+	        
+	        if(kakao_account.getAsJsonObject().get("birthday") != null)
+	        	birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();	// kakao_account에서 생일 추출(예매시 정보수집하므로 null체크)
+	        	
+	        userInfo.put("nickname", nickname); userInfo.put("gender", gender); userInfo.put("age_range", age_range); userInfo.put("birthday", birthday);
 	        
 	    } catch (IOException e) {
 	        e.printStackTrace();

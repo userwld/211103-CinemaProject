@@ -49,23 +49,51 @@
 				</c:choose>
 			</ul>
 			<ul class="g_menu3">
+				<c:set var = "redirectUri" value = "http://localhost:8085/cinema/kakaoReserve"/>	
+				<c:set var = "restKey" value = "24d1826f93f5ef832e2398885563dee4"/>	  
+			
 				<%if (session.getAttribute("loginInfo") != null) {%>
 					<li><a href="${root}ticketingHistory" class="btn_my">마이</a></li>
 				<% } else { %>
 					<li><a href="register1" class="btn_my">회원가입</a></li>
 				<% } %>
-				<li><a href="index?formpath=ticketing" class="btn_reserve">바로 예매</a></li>
+				<li>
+					<c:choose>
+						<c:when test="${not empty id }">
+		               		<a class="btn_reserve" href="https://kauth.kakao.com/oauth/authorize?client_id=${restKey }&redirect_uri=${redirectUri }&response_type=code&scope=age_range,gender,birthday">예매</a>
+						</c:when>
+						<c:otherwise><a href="index?formpath=ticketing" class="btn_reserve">바로 예매</a></c:otherwise>
+					</c:choose>
 				<li><button class="btn_menu_all">전체 메뉴 레이어 열기</button><div id="allmenu"></div></li>
 			</ul>
 		</div>
-		<div id="nav">
+	<div id="nav">
 			<ul>
 				<li class="">
-					<a href="index?formpath=ticketing">예매</a>
+					<c:choose>
+						<c:when test="${not empty id }">
+		               		<a href="https://kauth.kakao.com/oauth/authorize?client_id=${restKey }&redirect_uri=${redirectUri }&response_type=code&scope=age_range,gender,birthday">예매</a>
+						</c:when>
+						<c:otherwise><a href="index?formpath=ticketing">예매</a></c:otherwise>
+					</c:choose>
+					
 					<div style="display: none;">
 						<ul style="opacity: 0;">
-							<li><a href="index?formpath=ticketing" title="예매하기">예매하기</a></li>
-							<li><a href="index?formpath=ticketing" title="상영시간표">상영시간표</a></li>
+							<li><c:choose>
+									<c:when test="${not empty id }">
+					               		<a href="https://kauth.kakao.com/oauth/authorize?client_id=${restKey }&redirect_uri=${redirectUri }&response_type=code&scope=age_range,gender,birthday">예매하기</a>
+									</c:when>
+									<c:otherwise><a href="index?formpath=ticketing">예매하기</a></c:otherwise>
+								</c:choose>
+							</li>
+							<li><c:choose>
+									<c:when test="${not empty id }">
+					               		<a href="https://kauth.kakao.com/oauth/authorize?client_id=${restKey }&redirect_uri=${redirectUri }&response_type=code&scope=age_range,gender,birthday">상영시간표</a>
+									</c:when>
+									<c:otherwise><a href="index?formpath=ticketing">상영시간표</a></c:otherwise>
+								</c:choose>
+							</li>
+				
 						</ul>
 					</div>
 				</li>
@@ -76,7 +104,7 @@
 							<li><a href="movieListProc" title="홈">홈</a></li>
 							<li class=""><a href="movieInfoListProc?page=1" title="현재상영작">현재상영작</a></li>
 							<li><a href="movieInfoListProc?page=2" title="상영예정작">상영예정작</a></li>
-						
+			
 						</ul>
 					</div>
 				</li>
