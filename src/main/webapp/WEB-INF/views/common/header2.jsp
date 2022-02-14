@@ -41,6 +41,7 @@
 				     	<c:set var = "redirectUri" value = "http://localhost:8085/cinema/kakaoLogout"/>	
 						<c:set var = "restKey" value = "24d1826f93f5ef832e2398885563dee4"/>	
 						<li><a href="https://kauth.kakao.com/oauth/logout?client_id=${restKey }&logout_redirect_uri=${redirectUri }">카카오 로그아웃</a></li>
+						<li><a href="${root }ticketingHistory">예매내역 확인</a></li>
 					</c:when>
 					
 					<c:otherwise>

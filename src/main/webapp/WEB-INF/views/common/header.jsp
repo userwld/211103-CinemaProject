@@ -41,6 +41,7 @@
 				     	<c:set var = "redirectUri" value = "http://localhost:8085/cinema/kakaoLogout"/>	<!-- http로 지정해야 파싱오류 안남 -->
 						<c:set var = "restKey" value = "24d1826f93f5ef832e2398885563dee4"/>	
 						<li><a href="https://kauth.kakao.com/oauth/logout?client_id=${restKey }&logout_redirect_uri=${redirectUri }">카카오 로그아웃</a></li>
+						<li><a href="${root }ticketingHistory">예매내역 확인</a></li>						<!-- 카카오 회원은 예매/예매내역확인까지 가능 -->
 					</c:when>
 					
 					<c:otherwise>

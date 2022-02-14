@@ -48,7 +48,13 @@ public class LoginController {
 		String accessToken = kakao.getAccessToken(code, state);	
 		HashMap<String, Object> userInfo = kakao.getUserInfo(accessToken); 
 		
-		session.setAttribute("id", userInfo.get("nickname"));	
+		String id = (String)userInfo.get("nickname");
+		if(userInfo.get("birthday") != null) {
+			id = (String)userInfo.get("nickname")+userInfo.get("birthday"); 	// 카카오 닉네임 중복방지를 위해 닉네임+생일로 아이디 가공(예매한적 있으면 예매내역 조회를 위해)	
+			session.setAttribute("userInfo", userInfo);
+		}
+		
+		session.setAttribute("id", id);	
 		session.setAttribute("accessToken", accessToken);	
 				
 		return "forward:index";
@@ -80,6 +86,7 @@ public class LoginController {
 			
 			session.setAttribute("accessToken", accessToken);	
 			session.setAttribute("userInfo", userInfo);
+			session.setAttribute("id", (String)userInfo.get("nickname") + userInfo.get("birthday"));	
 		}
 	
 		return "forward:index?formpath=ticketing";

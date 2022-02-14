@@ -118,7 +118,11 @@ public class MyPageServiceImpl implements IMyPageService {
 	@Override	/* 마이페이지 - 예매내역/관람내역 - recent 매개변수로 페이지 구분 */
 	public boolean ticketingHistory(Model model, String recent) {
 		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
-		if(dto == null) return false;
+		if(dto == null && session.getAttribute("id") == null) return false;
+		
+		String id = "";
+		if(dto != null) id = dto.getId();												// 카카오 로그인 회원도 예매/관람내역 확인가능
+		else id = (String)session.getAttribute("id");
 		
 		ArrayList<TicketingDTO> myTicketing = new ArrayList<TicketingDTO>();			// 매개변수 recent에 따라 아래에서 다르게 담김	
 		Map<Integer,MovieDTO> myMovieInfo  = new LinkedHashMap<Integer,MovieDTO>();		// 찜목록과 같은 형태로 movieListNum을 키로 사용 / 날짜 순 정렬 유지하기 위해 LinkedHashMap사용
@@ -128,9 +132,9 @@ public class MyPageServiceImpl implements IMyPageService {
 		Map<Integer,String> btnTime = new LinkedHashMap<Integer,String>();				// 리뷰작성버튼/예매취소버튼 활성화를 위한 시간을 담음 -> 이때는 key를 ticketingNum으로 사용, 같은 영화 예매했을 경우 각각 계산위해
 		
 		if(recent.equals("recent")) {
-			myTicketing = gradeDao.selectRecentTicketing(dto.getId());					// 매개변수 recent의 값이 recent일 경우 -> 예매내역(오늘 기준 한달전 ~ 오늘 기준 일주일 후)
+			myTicketing = gradeDao.selectRecentTicketing(id);					// 매개변수 recent의 값이 recent일 경우 -> 예매내역(오늘 기준 한달전 ~ 오늘 기준 일주일 후)
 		}else {
-			 myTicketing = gradeDao.selectMyTickting(dto.getId());						// recent의 값이 recent가 아닐 경우 -> 관람내역(예매한 기록 전부)
+			 myTicketing = gradeDao.selectMyTickting(id);						// recent의 값이 recent가 아닐 경우 -> 관람내역(예매한 기록 전부)
 		}
 	
 		if(!myTicketing.isEmpty()) {
@@ -139,7 +143,7 @@ public class MyPageServiceImpl implements IMyPageService {
 				String cinema = gradeDao.selectCinemaName(t.getCinemaNum());
 				String hall = gradeDao.selectHallName(t.getHallNum());
 				if(!recent.equals("recent")) {											// 관람내역일 경우 - 내가 쓴 리뷰 출력
-					String review = gradeDao.selectMyReview(t.getMovieListNum(), dto.getId());
+					String review = gradeDao.selectMyReview(t.getMovieListNum(), id);
 					if(review != null) myReview.put(t.getMovieListNum(), review);	
 					btnTime.put(t.getTicketingNum(),reviewCalc(t.getOpenDate(),t.getOpenTime(),movie.getMovieTime()));	// 관람내역일 경우, 리뷰작성가능시간 계산해서 버튼 활성화
 				}else {
